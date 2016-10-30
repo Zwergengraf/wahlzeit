@@ -23,6 +23,9 @@ public class LocationTest {
 		assertNotNull(newLocation.getCoordinate());
 	}
 
+	/**
+	 * Make sure that newLocation's coordinate is set - more in-depth tests for Coordinate can be found in CoordinateTest
+	 */
 	@Test
 	public void testCoordinate() {
 		Location newLocation = new Location(testCoordinate);

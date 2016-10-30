@@ -8,11 +8,11 @@ public class Coordinate {
 	private final double longitude;
 
 	public Coordinate(double latitude, double longitude) {
-		if (latitude > 360 || latitude < -360) {
+		if (latitude > 180 || latitude < -180) {
 			throw new IllegalArgumentException("Invalid latitude.");
 		}
 
-		if (longitude > 360 || longitude < -360) {
+		if (longitude > 180 || longitude < -180) {
 			throw new IllegalArgumentException("Invalid longitude.");
 		}
 
