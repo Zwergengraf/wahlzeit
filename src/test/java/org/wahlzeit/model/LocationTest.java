@@ -2,8 +2,7 @@ package org.wahlzeit.model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class LocationTest {
 
@@ -21,17 +20,6 @@ public class LocationTest {
 		Location newLocation = new Location(testCoordinate);
 
 		assertNotNull(newLocation.getCoordinate());
-	}
-
-	/**
-	 * Make sure that newLocation's coordinate is set - more in-depth tests for Coordinate can be found in CoordinateTest
-	 */
-	@Test
-	public void testCoordinate() {
-		Location newLocation = new Location(testCoordinate);
-
-		assertEquals(47, newLocation.getCoordinate().getLatitude(), 0);
-		assertEquals(11, newLocation.getCoordinate().getLongitude(), 0);
 	}
 
 }

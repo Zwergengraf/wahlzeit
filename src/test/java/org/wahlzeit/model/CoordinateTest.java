@@ -23,6 +23,17 @@ public class CoordinateTest {
 	}
 
 	/**
+	 * Test accessing a Coordinate from a Location
+	 */
+	@Test
+	public void testLocationAccess() {
+		Location newLocation = new Location(northPole);
+
+		assertEquals(90, newLocation.getCoordinate().getLatitude(), 0);
+		assertEquals(0, newLocation.getCoordinate().getLongitude(), 0);
+	}
+
+	/**
 	 * North Pole to South Pole: 1/2 circumference (= PI * EARTH_RADIUS)
 	 */
 	@Test
