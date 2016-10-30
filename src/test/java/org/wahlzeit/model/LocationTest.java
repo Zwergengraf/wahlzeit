@@ -1,12 +1,17 @@
 package org.wahlzeit.model;
 
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 
 public class LocationTest {
 
-	private static final Coordinate testCoordinate = new Coordinate(47, 11);
+	private Coordinate testCoordinate;
+
+	@Before
+	public void setUp() {
+		testCoordinate = new Coordinate(0, 0);
+	}
 
 	@Test
 	public void testConstructor() {
