@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class LocationTest {
 
-	private Coordinate testCoordinate = new Coordinate(47, 11);
+	private static final Coordinate testCoordinate = new Coordinate(47, 11);
 
 	@Test
 	public void testConstructor() {
