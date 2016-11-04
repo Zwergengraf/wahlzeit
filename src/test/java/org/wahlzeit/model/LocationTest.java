@@ -4,6 +4,9 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Location test.
+ */
 public class LocationTest {
 
 	private Coordinate testCoordinate;
