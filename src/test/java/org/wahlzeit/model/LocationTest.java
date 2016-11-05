@@ -5,7 +5,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
- * The type Location test.
+ * All test cases of the class {@link Location}.
  */
 public class LocationTest {
 

@@ -3,6 +3,9 @@ package org.wahlzeit.utils;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * Contains all util unit tests
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		StringUtilTest.class,
@@ -10,6 +13,4 @@ import org.junit.runners.Suite;
 })
 
 public class UtilsTestSuite {
-	// the class remains empty,
-	// used only as a holder for the above annotations
 }

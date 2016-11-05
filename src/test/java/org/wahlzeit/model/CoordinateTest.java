@@ -4,6 +4,9 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * All test cases of the class {@link Coordinate}.
+ */
 public class CoordinateTest {
 
 	private Coordinate northPole;

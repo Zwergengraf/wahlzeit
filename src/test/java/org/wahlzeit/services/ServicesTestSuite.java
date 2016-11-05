@@ -4,6 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.wahlzeit.services.mailing.EmailServiceTest;
 
+/**
+ * Contains all services unit tests
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		EmailServiceTest.class,
@@ -13,6 +16,4 @@ import org.wahlzeit.services.mailing.EmailServiceTest;
 })
 
 public class ServicesTestSuite {
-	// the class remains empty,
-	// used only as a holder for the above annotations
 }

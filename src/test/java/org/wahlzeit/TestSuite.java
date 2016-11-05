@@ -7,6 +7,9 @@ import org.wahlzeit.model.ModelTestSuite;
 import org.wahlzeit.services.ServicesTestSuite;
 import org.wahlzeit.utils.UtilsTestSuite;
 
+/**
+ * Global test suite, contains all sub suites
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		HandlersTestSuite.class,
@@ -16,6 +19,4 @@ import org.wahlzeit.utils.UtilsTestSuite;
 })
 
 public class TestSuite {
-	// the class remains empty,
-	// used only as a holder for the above annotations
 }

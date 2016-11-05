@@ -4,6 +4,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.wahlzeit.model.persistence.*;
 
+/**
+ * Contains all model unit tests
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 		AbstractAdapterTest.class,
@@ -23,6 +26,4 @@ import org.wahlzeit.model.persistence.*;
 })
 
 public class ModelTestSuite {
-	// the class remains empty,
-	// used only as a holder for the above annotations
 }
