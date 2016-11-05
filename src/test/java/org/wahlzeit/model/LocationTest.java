@@ -17,13 +17,6 @@ public class LocationTest {
 	}
 
 	@Test
-	public void testConstructor() {
-		Location newLocation = new Location(testCoordinate);
-
-		assertNotNull(newLocation);
-	}
-
-	@Test
 	public void testCoordinateNotNull() {
 		Location newLocation = new Location(testCoordinate);
 

@@ -1,7 +1,11 @@
 package org.wahlzeit.model;
 
+/**
+ * Global test suite, contains all sub suites
+ */
 public class Coordinate {
 
+	// Public because it is accessed in CoordinateTest
 	public static final double EARTH_RADIUS = 6371;
 
 	private final double latitude;
@@ -28,13 +32,18 @@ public class Coordinate {
 		return longitude;
 	}
 
+	/**
+	 * Method to calculate the distance between two coordinates
+	 *
+	 * @param otherCoordinate
+	 * @return Distance in km
+	 */
 	public double getDistance(Coordinate otherCoordinate) {
 		if(otherCoordinate == null) {
 			throw new NullPointerException("otherCoordinate is null.");
 		}
 
-		/**
-		 * Great circle distance:
+		/* Great circle distance:
 		 * https://en.wikipedia.org/wiki/Great-circle_distance
 		 */
 		double lat1 = Math.toRadians(getLatitude());
@@ -42,7 +51,7 @@ public class Coordinate {
 		double lat2 = Math.toRadians(otherCoordinate.getLatitude());
 		double lon2 = Math.toRadians(otherCoordinate.getLongitude());
 
-		double dist = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2)) * EARTH_RADIUS;
+		double dist = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(Math.abs(lon1) - Math.abs(lon2))) * EARTH_RADIUS;
 
 		return dist;
 	}
