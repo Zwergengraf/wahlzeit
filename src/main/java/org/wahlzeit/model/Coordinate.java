@@ -5,7 +5,7 @@ package org.wahlzeit.model;
  */
 public class Coordinate {
 
-	// Public because it is accessed in CoordinateTest
+	// Earth radius in km - Public because it is accessed in CoordinateTest
 	public static final double EARTH_RADIUS = 6371;
 
 	private final double latitude;
