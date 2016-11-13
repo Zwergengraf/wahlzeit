@@ -1,7 +1,7 @@
 package org.wahlzeit.model;
 
 /**
- * Global test suite, contains all sub suites
+ * Coordinate class
  */
 public class Coordinate {
 

@@ -9,7 +9,6 @@ import org.wahlzeit.model.persistence.*;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-		AbstractAdapterTest.class,
 		DatastoreAdapterTest.class,
 		GcsAdapterTest.class,
 
@@ -22,7 +21,11 @@ import org.wahlzeit.model.persistence.*;
 		PhotoFilterTest.class,
 		TagsTest.class,
 		UserStatusTest.class,
-		ValueTest.class
+		ValueTest.class,
+
+		LandscapePhotoFactoryTest.class,
+		LandscapePhotoManagerTest.class,
+		LandscapePhotoTest.class
 })
 
 public class ModelTestSuite {
