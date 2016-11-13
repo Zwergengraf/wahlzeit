@@ -9,7 +9,7 @@ import org.wahlzeit.testEnvironmentProvider.RegisteredOfyEnvironmentProvider;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Test class for {@link LandscapePhotoFactory}.
  */
 public class LandscapePhotoFactoryTest {
 

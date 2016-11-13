@@ -11,11 +11,18 @@ public class LandscapePhotoManager extends PhotoManager {
 
 	private static final Logger log = Logger.getLogger(LandscapePhotoManager.class.getName());
 
+	/**
+	 * @methodtype constructor
+	 */
 	public LandscapePhotoManager() {
 		super();
 	}
 
+	/**
+	 * @methodtype get
+	 */
 	public PhotoManager getLandscapePhotoManager() {
 		return instance;
 	}
+
 }

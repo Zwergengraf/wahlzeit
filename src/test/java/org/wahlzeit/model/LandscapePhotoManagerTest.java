@@ -10,9 +10,11 @@ import java.io.IOException;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Test class for {@link LandscapePhotoManager}.
  */
 public class LandscapePhotoManagerTest {
+
+	private static final int PHOTOID = 4711;
 
 	/**
 	 * ClassRule to initialize Google AppEngine Datastore
@@ -24,7 +26,7 @@ public class LandscapePhotoManagerTest {
 
 	@Test
 	public void saveAndLoadPhoto() throws IOException {
-		PhotoId id = new PhotoId(4711);
+		PhotoId id = new PhotoId(PHOTOID);
 		LandscapePhoto landscapePhoto = new LandscapePhoto(id);
 		LandscapePhotoManager.getInstance().addPhoto(landscapePhoto);
 
