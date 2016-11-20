@@ -14,7 +14,6 @@ import org.wahlzeit.model.persistence.*;
 
 		AccessRightsTest.class,
 		CartesianCoordinateTest.class,
-		CoordinateTest.class,
 		FlagReasonTest.class,
 		GenderTest.class,
 		GuestTest.class,
