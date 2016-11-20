@@ -9,16 +9,25 @@ import static org.junit.Assert.*;
  */
 public class LocationTest {
 
-	private Coordinate testCoordinate;
+	private Coordinate testSphericCoordinate;
+	private Coordinate testCartesianCoordinate;
 
 	@Before
 	public void setUp() {
-		testCoordinate = new Coordinate(0, 0);
+		testSphericCoordinate = new SphericCoordinate(0, 0);
+		testCartesianCoordinate = new CartesianCoordinate(0, 0, 0);
 	}
 
 	@Test
-	public void testCoordinateNotNull() {
-		Location newLocation = new Location(testCoordinate);
+	public void testSphericCoordinateNotNull() {
+		Location newLocation = new Location(testSphericCoordinate);
+
+		assertNotNull(newLocation.getCoordinate());
+	}
+
+	@Test
+	public void testCartesianCoordinateNotNull() {
+		Location newLocation = new Location(testCartesianCoordinate);
 
 		assertNotNull(newLocation.getCoordinate());
 	}

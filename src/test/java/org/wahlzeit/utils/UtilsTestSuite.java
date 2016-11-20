@@ -8,6 +8,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+		CoordinateUtilTest.class,
 		StringUtilTest.class,
 		VersionTest.class
 })
