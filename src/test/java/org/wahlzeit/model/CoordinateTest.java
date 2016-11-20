@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * All test cases of the class {@link Coordinate}.
+ */
 public class CoordinateTest {
 
 	private Coordinate northPole;
@@ -26,7 +29,5 @@ public class CoordinateTest {
 		assertEquals(90, sc1.getLatitude(), 0);
 		assertEquals(0,  sc1.getLongitude(), 0);
 	}
-
-
 
 }

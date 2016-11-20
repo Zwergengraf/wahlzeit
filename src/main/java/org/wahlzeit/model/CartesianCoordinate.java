@@ -6,6 +6,9 @@ import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
+/**
+ * Implementation of Coordinate interface using cartesian coordinates
+ */
 public class CartesianCoordinate implements Coordinate {
 
 	// Radius delta, used to check for valid radius

@@ -6,6 +6,9 @@ import org.wahlzeit.utils.CoordinateUtil;
 import static java.lang.Math.*;
 import static org.junit.Assert.*;
 
+/**
+ * All test cases of the class {@link CartesianCoordinate}.
+ */
 public class CartesianCoordinateTest {
 
 	private double nurembergLat = 49.4529;

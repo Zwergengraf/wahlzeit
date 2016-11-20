@@ -9,6 +9,9 @@ import static java.lang.Math.sin;
 import static java.lang.Math.toRadians;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * All test cases of the class {@link CoordinateUtil}.
+ */
 public class CoordinateUtilTest {
 
 	private double nurembergLat = 49.4529;

@@ -6,7 +6,7 @@ import org.wahlzeit.utils.CoordinateUtil;
 import static org.junit.Assert.*;
 
 /**
- * All test cases of the class {@link Coordinate}.
+ * All test cases of the class {@link SphericCoordinate}.
  */
 public class SphericCoordinateTest {
 

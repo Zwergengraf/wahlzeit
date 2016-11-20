@@ -6,7 +6,7 @@ import static java.lang.Math.*;
 
 
 /**
- * SphericCoordinate class
+ * Implementation of Coordinate interface using spheric coordinates
  */
 public class SphericCoordinate implements Coordinate {
 
