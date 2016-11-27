@@ -1,9 +1,7 @@
 package org.wahlzeit.model;
 
 import org.junit.*;
-import org.wahlzeit.utils.CoordinateUtil;
 
-import static java.lang.Math.*;
 import static org.junit.Assert.*;
 
 /**
@@ -11,25 +9,25 @@ import static org.junit.Assert.*;
  */
 public class CartesianCoordinateTest {
 
-	private double nurembergLat = 49.4529;
-	private double nurembergLon = 11.0768;
-	private double x = CoordinateUtil.EARTH_RADIUS_KM * sin(toRadians(nurembergLat)) * cos(toRadians(nurembergLon));
-	private double y = CoordinateUtil.EARTH_RADIUS_KM * sin(toRadians(nurembergLat)) * sin(toRadians(nurembergLon));
-	private double z = CoordinateUtil.EARTH_RADIUS_KM * cos(toRadians(nurembergLat));
 	private CartesianCoordinate nuremberg;
 
 	@Before
 	public void setUp() {
-		nuremberg = new CartesianCoordinate(x, y, z);
+		nuremberg = new CartesianCoordinate(1, 2, 3);
 	}
 
 	@Test
 	public void testGetters() {
-		assertEquals(x, nuremberg.getX(), 0);
-		assertEquals(y, nuremberg.getY(), 0);
-		assertEquals(z, nuremberg.getZ(), 0);
+		assertEquals(1, nuremberg.getX(), 0);
+		assertEquals(2, nuremberg.getY(), 0);
+		assertEquals(3, nuremberg.getZ(), 0);
 	}
 
-
+	@Test
+	public void testSimpleCartesianDistance() {
+		CartesianCoordinate c1 = new CartesianCoordinate(0, 0, 0);
+		CartesianCoordinate c2 = new CartesianCoordinate(2, 0, 0);
+		assertEquals(2, c1.getDistance(c2), 0);
+	}
 
 }

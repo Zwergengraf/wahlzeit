@@ -1,18 +1,10 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.utils.CoordinateUtil;
-
-import static java.lang.Math.abs;
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
 
 /**
  * Implementation of Coordinate interface using cartesian coordinates
  */
-public class CartesianCoordinate implements Coordinate {
-
-	// Radius delta, used to check for valid radius
-	private static final double RADIUS_DELTA_KM = 5;
+public class CartesianCoordinate extends AbstractCoordinate {
 
 	private final double x;
 	private final double y;
@@ -24,10 +16,10 @@ public class CartesianCoordinate implements Coordinate {
 		this.z = z;
 
 		// Check the radius to make sure that the CartesianCoordinate is valid
-		double testR = sqrt(pow(getX(), 2) + pow(getY(), 2) + pow(getZ(), 2));
-		if(abs(testR - CoordinateUtil.EARTH_RADIUS_KM) > RADIUS_DELTA_KM) {
+		/*double testR = sqrt(pow(getX(), 2) + pow(getY(), 2) + pow(getZ(), 2));
+		if(abs(testR - EARTH_RADIUS_KM) > RADIUS_DELTA_KM) {
 			throw new InstantiationError("Invalid radius, only coordinates ON earth are supported.");
-		}
+		}*/
 	}
 
 	public double getX() {
@@ -42,12 +34,16 @@ public class CartesianCoordinate implements Coordinate {
 		return z;
 	}
 
-	@Override
-	public double getDistance(Coordinate otherCoordinate) {
-		if(otherCoordinate == null) {
-			throw new NullPointerException("otherCoordinate is null.");
-		}
+	protected double doGetDistance(CartesianCoordinate otherCoordinate) {
+		double diffX = Math.abs(this.getX() - otherCoordinate.getX());
+		double diffY = Math.abs(this.getY() - otherCoordinate.getY());
+		double diffZ = Math.abs(this.getZ() - otherCoordinate.getZ());
+		return Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
+	}
 
-		return CoordinateUtil.doGetDistance(this, otherCoordinate);
+	protected boolean doIsEqual(CartesianCoordinate otherCoordinate) {
+		return this.getX() == otherCoordinate.getX() &&
+				this.getY() == otherCoordinate.getY() &&
+				this.getZ() == otherCoordinate.getZ();
 	}
 }

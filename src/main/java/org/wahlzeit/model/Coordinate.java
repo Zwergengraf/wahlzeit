@@ -8,4 +8,6 @@ public interface Coordinate {
 
 	double getDistance(Coordinate otherCoordinate);
 
+	boolean isEqual(Coordinate otherCoordinate);
+
 }

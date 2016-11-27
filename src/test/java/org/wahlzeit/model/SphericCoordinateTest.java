@@ -1,9 +1,9 @@
 package org.wahlzeit.model;
 
 import org.junit.*;
-import org.wahlzeit.utils.CoordinateUtil;
 
 import static org.junit.Assert.*;
+import static org.wahlzeit.model.SphericCoordinate.EARTH_RADIUS_KM;
 
 /**
  * All test cases of the class {@link SphericCoordinate}.
@@ -27,12 +27,12 @@ public class SphericCoordinateTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testCoordinateInvalid1() {
-		Coordinate invalid = new SphericCoordinate(-181, 0);
+		new SphericCoordinate(-181, 0);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testCoordinateInvalid2() {
-		Coordinate invalid = new SphericCoordinate(0, 181);
+		new SphericCoordinate(0, 181);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class SphericCoordinateTest {
 	 */
 	@Test
 	public void testSphericDistanceNS() {
-		assertEquals(Math.PI * CoordinateUtil.EARTH_RADIUS_KM, northPole.getDistance(southPole), 1);
+		assertEquals(Math.PI * EARTH_RADIUS_KM, northPole.getDistance(southPole), 1);
 	}
 
 	/**
@@ -67,4 +67,19 @@ public class SphericCoordinateTest {
 		assertEquals(nuremberg.getDistance(berlin), berlin.getDistance(nuremberg), 0);
 	}
 
+	/**
+	 * Test isEqual() method, should succeed
+	 */
+	@Test
+	public void testIsEqual() {
+		assertTrue(nuremberg.isEqual(nuremberg));
+	}
+
+	/**
+	 * Test isEqual() method, should fail
+	 */
+	@Test
+	public void testFailIsEqual() {
+		assertFalse(nuremberg.isEqual(northPole));
+	}
 }

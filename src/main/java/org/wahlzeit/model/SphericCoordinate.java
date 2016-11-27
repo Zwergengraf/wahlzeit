@@ -1,17 +1,29 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.utils.CoordinateUtil;
-
 import static java.lang.Math.*;
 
 
 /**
  * Implementation of Coordinate interface using spheric coordinates
  */
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
 
 	private final double latitude;
 	private final double longitude;
+	private final double radius;
+
+	public static final double EARTH_RADIUS_KM = 6371;
+
+	/**
+	 * Constructor for SphericCoordinate, using earth radius
+	 *
+	 * @methodtype constructor
+	 * @param latitude
+	 * @param longitude
+	 */
+	public SphericCoordinate(double latitude, double longitude) {
+		this(latitude, longitude, EARTH_RADIUS_KM);
+	}
 
 	/**
 	 * Constructor for SphericCoordinate
@@ -19,9 +31,9 @@ public class SphericCoordinate implements Coordinate {
 	 * @methodtype constructor
 	 * @param latitude
 	 * @param longitude
-	 * @return Distance in km
+	 * @param radius
 	 */
-	public SphericCoordinate(double latitude, double longitude) {
+	public SphericCoordinate(double latitude, double longitude, double radius) {
 		if (latitude > 90 || latitude < -90) {
 			throw new IllegalArgumentException("Invalid latitude.");
 		}
@@ -32,7 +44,18 @@ public class SphericCoordinate implements Coordinate {
 
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.radius = radius;
 	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public double getRadius() { return radius; }
 
 	/**
 	 * Transforms a given Coordinate into a SphericCoordinate
@@ -60,31 +83,34 @@ public class SphericCoordinate implements Coordinate {
 			return new SphericCoordinate(degLat, degLon);
 
 		} else {
-			throw new InstantiationError("Unsupported class used in fromCoordinate");
+			throw new InstantiationError("Unsupported class used in fromCoordinate.");
 		}
 	}
 
-	public double getLatitude() {
-		return latitude;
+	protected double doGetDistance(SphericCoordinate otherCoordinate) {
+		assertSameRadius(otherCoordinate);
+
+		// Great circle distance: https://en.wikipedia.org/wiki/Great-circle_distance
+		double lat1 = Math.toRadians(this.getLatitude());
+		double lon1 = Math.toRadians(this.getLongitude());
+		double lat2 = Math.toRadians(otherCoordinate.getLatitude());
+		double lon2 = Math.toRadians(otherCoordinate.getLongitude());
+
+		double dist = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(Math.abs(lon1) - Math.abs(lon2)))
+				* getRadius();
+
+		return dist;
 	}
 
-	public double getLongitude() {
-		return longitude;
+	protected boolean doIsEqual(SphericCoordinate otherCoordinate) {
+		assertSameRadius(otherCoordinate);
+
+		return this.getLatitude() == otherCoordinate.getLatitude() &&
+				this.getLongitude() == otherCoordinate.getLongitude() &&
+				this.getRadius() == otherCoordinate.getRadius();
 	}
 
-	/**
-	 * Method to calculate the distance between two coordinates
-	 *
-	 * @param otherCoordinate
-	 * @return Distance in km
-	 */
-	@Override
-	public double getDistance(Coordinate otherCoordinate) {
-		if(otherCoordinate == null) {
-			throw new NullPointerException("otherCoordinate is null.");
-		}
-
-		return CoordinateUtil.doGetDistance(this, otherCoordinate);
+	private void assertSameRadius(SphericCoordinate otherCoordinate) {
+		assert this.getRadius() == otherCoordinate.getRadius() : "Radius of SphericCoordinates must be equal.";
 	}
-
 }
