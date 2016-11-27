@@ -3,7 +3,7 @@ package org.wahlzeit.model;
 public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
-	public double getDistance(Coordinate otherCoordinate) {
+	public final double getDistance(Coordinate otherCoordinate) {
 		assertCoordinateNotNull(otherCoordinate);
 
 		// Only use cartesian distance if both coordinates are CartesianCoordinates
@@ -22,7 +22,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 
 	@Override
-	public boolean isEqual(Coordinate otherCoordinate) {
+	public final boolean isEqual(Coordinate otherCoordinate) {
 		assertCoordinateNotNull(otherCoordinate);
 
 		// Only use cartesian method doIsEqual if both coordinates are CartesianCoordinates
