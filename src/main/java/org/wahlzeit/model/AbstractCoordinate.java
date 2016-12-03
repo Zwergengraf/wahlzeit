@@ -2,45 +2,29 @@ package org.wahlzeit.model;
 
 public abstract class AbstractCoordinate implements Coordinate {
 
+	public static final double COORDINATE_DELTA = 1E-6;
+
+	public abstract double getX();
+	public abstract double getY();
+	public abstract double getZ();
+
 	@Override
-	public final double getDistance(Coordinate otherCoordinate) {
+	public double getDistance(Coordinate otherCoordinate) {
 		assertCoordinateNotNull(otherCoordinate);
 
-		// Only use cartesian distance if both coordinates are CartesianCoordinates
-		if(this instanceof CartesianCoordinate && otherCoordinate instanceof CartesianCoordinate) {
-			CartesianCoordinate c1 = (CartesianCoordinate)this;
-			CartesianCoordinate c2 = (CartesianCoordinate)otherCoordinate;
+		double diffX = Math.abs(this.getX() - ((AbstractCoordinate)otherCoordinate).getX());
+		double diffY = Math.abs(this.getY() - ((AbstractCoordinate)otherCoordinate).getY());
+		double diffZ = Math.abs(this.getZ() - ((AbstractCoordinate)otherCoordinate).getZ());
 
-			return c1.doGetDistance(c2);
-		}
-
-		// Transform both coordinates to SphericCoordinates
-		SphericCoordinate sc1 = SphericCoordinate.fromCoordinate(this);
-		SphericCoordinate sc2 = SphericCoordinate.fromCoordinate(otherCoordinate);
-
-		return sc1.doGetDistance(sc2);
+		return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2) + Math.pow(diffZ, 2));
 	}
 
 	@Override
-	public final boolean isEqual(Coordinate otherCoordinate) {
-		assertCoordinateNotNull(otherCoordinate);
-
-		// Only use cartesian method doIsEqual if both coordinates are CartesianCoordinates
-		if(this instanceof CartesianCoordinate && otherCoordinate instanceof CartesianCoordinate) {
-			CartesianCoordinate c1 = (CartesianCoordinate)this;
-			CartesianCoordinate c2 = (CartesianCoordinate)otherCoordinate;
-
-			return c1.doIsEqual(c2);
-		}
-
-		// Transform both coordinates to SphericCoordinates
-		SphericCoordinate sc1 = SphericCoordinate.fromCoordinate(this);
-		SphericCoordinate sc2 = SphericCoordinate.fromCoordinate(otherCoordinate);
-
-		return sc1.doIsEqual(sc2);
+	public boolean isEqual(Coordinate otherCoordinate) {
+		return this.getDistance(otherCoordinate) < COORDINATE_DELTA;
 	}
 
-	private void assertCoordinateNotNull(Coordinate c) {
+	protected void assertCoordinateNotNull(Coordinate c) {
 		assert c != null : "Coordinate is null.";
 	}
 

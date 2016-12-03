@@ -34,13 +34,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param radius
 	 */
 	public SphericCoordinate(double latitude, double longitude, double radius) {
-		if (latitude > 90 || latitude < -90) {
-			throw new IllegalArgumentException("Invalid latitude.");
-		}
-
-		if (longitude > 180 || longitude < -180) {
-			throw new IllegalArgumentException("Invalid longitude.");
-		}
+		assertValidSphericCoordinate(latitude, longitude, radius);
 
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -57,34 +51,35 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	public double getRadius() { return radius; }
 
-	/**
-	 * Transforms a given Coordinate into a SphericCoordinate
-	 *
-	 * @param c1
-	 * @return New SphericCoordinate
-	 */
-	public static SphericCoordinate fromCoordinate(Coordinate c1) {
-		if(c1 instanceof SphericCoordinate) {
+	@Override
+	public double getX() {
+		return radius * sin(toRadians(latitude)) * cos(toRadians(longitude));
+	}
 
-			// Is already a SphericCoordinate, nothing more to do
-			return (SphericCoordinate)c1;
+	@Override
+	public double getY() {
+		return radius * sin(toRadians(latitude)) * sin(toRadians(longitude));
+	}
 
-		} else if(c1 instanceof CartesianCoordinate) {
+	@Override
+	public double getZ() {
+		return radius * cos(toRadians(latitude));
+	}
 
-			// Transform Cartesian -> Spheric
-			// https://de.wikipedia.org/wiki/Kugelkoordinaten
-			CartesianCoordinate cc1 = (CartesianCoordinate) c1;
+	@Override
+	public double getDistance(Coordinate otherCoordinate) {
+		assertCoordinateNotNull(otherCoordinate);
 
-			double lat = (PI / 2) - atan(cc1.getZ() / sqrt(pow(cc1.getX(), 2) + pow(cc1.getY(), 2)));
-			double lon = atan2(toRadians(cc1.getY()), toRadians(cc1.getX()));
+		if (otherCoordinate instanceof SphericCoordinate) {
+			SphericCoordinate sc = (SphericCoordinate) otherCoordinate;
 
-			double degLat = toDegrees(lat);
-			double degLon = toDegrees(lon);
-			return new SphericCoordinate(degLat, degLon);
-
-		} else {
-			throw new InstantiationError("Unsupported class used in fromCoordinate.");
+			// Only use spheric distance if both are SphericCoordinates and have an equal radius
+			if (Math.abs(sc.getRadius() - this.radius) < AbstractCoordinate.COORDINATE_DELTA) {
+				return this.doGetDistance(sc);
+			}
 		}
+
+		return super.getDistance(otherCoordinate);
 	}
 
 	protected double doGetDistance(SphericCoordinate otherCoordinate) {
@@ -102,15 +97,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return dist;
 	}
 
-	protected boolean doIsEqual(SphericCoordinate otherCoordinate) {
-		assertSameRadius(otherCoordinate);
-
-		return this.getLatitude() == otherCoordinate.getLatitude() &&
-				this.getLongitude() == otherCoordinate.getLongitude() &&
-				this.getRadius() == otherCoordinate.getRadius();
+	private void assertSameRadius(SphericCoordinate otherCoordinate) {
+		assert (Math.abs(otherCoordinate.getRadius() - this.radius) < AbstractCoordinate.COORDINATE_DELTA) : "Radius of SphericCoordinates must be equal.";
 	}
 
-	private void assertSameRadius(SphericCoordinate otherCoordinate) {
-		assert this.getRadius() == otherCoordinate.getRadius() : "Radius of SphericCoordinates must be equal.";
+	private void assertValidSphericCoordinate(double latitude, double longitude, double radius) {
+		assert (latitude <= 90 && latitude >= -90) : "Invalid latitude.";
+		assert (longitude <= 180 && latitude >= -180) : "Invalid longitude.";
+		assert (radius > 0) : "Invalid radius.";
 	}
 }
