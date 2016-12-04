@@ -22,6 +22,8 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public boolean isEqual(Coordinate otherCoordinate) {
+		assertCoordinateNotNull(otherCoordinate);
+
 		return this.getDistance(otherCoordinate) < COORDINATE_DELTA;
 	}
 
