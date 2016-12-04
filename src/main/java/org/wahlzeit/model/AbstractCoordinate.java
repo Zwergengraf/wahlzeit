@@ -12,9 +12,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 	public double getDistance(Coordinate otherCoordinate) {
 		assertCoordinateNotNull(otherCoordinate);
 
-		double diffX = Math.abs(this.getX() - ((AbstractCoordinate)otherCoordinate).getX());
-		double diffY = Math.abs(this.getY() - ((AbstractCoordinate)otherCoordinate).getY());
-		double diffZ = Math.abs(this.getZ() - ((AbstractCoordinate)otherCoordinate).getZ());
+		AbstractCoordinate ac = (AbstractCoordinate)otherCoordinate;
+		double diffX = Math.abs(this.getX() - ac.getX());
+		double diffY = Math.abs(this.getY() - ac.getY());
+		double diffZ = Math.abs(this.getZ() - ac.getZ());
 
 		return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2) + Math.pow(diffZ, 2));
 	}
@@ -24,7 +25,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return this.getDistance(otherCoordinate) < COORDINATE_DELTA;
 	}
 
-	protected void assertCoordinateNotNull(Coordinate c) {
+	void assertCoordinateNotNull(Coordinate c) {
 		assert c != null : "Coordinate is null.";
 	}
 

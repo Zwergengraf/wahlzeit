@@ -34,11 +34,10 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param radius
 	 */
 	public SphericCoordinate(double latitude, double longitude, double radius) {
-		assertValidSphericCoordinate(latitude, longitude, radius);
-
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
+		assertValidSphericCoordinate(this);
 	}
 
 	public double getLatitude() {
@@ -82,8 +81,10 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return super.getDistance(otherCoordinate);
 	}
 
-	protected double doGetDistance(SphericCoordinate otherCoordinate) {
+	private double doGetDistance(SphericCoordinate otherCoordinate) {
 		assertSameRadius(otherCoordinate);
+		assertValidSphericCoordinate(otherCoordinate);
+		assertValidSphericCoordinate(this);
 
 		// Great circle distance: https://en.wikipedia.org/wiki/Great-circle_distance
 		double lat1 = Math.toRadians(this.getLatitude());
@@ -101,9 +102,10 @@ public class SphericCoordinate extends AbstractCoordinate {
 		assert (Math.abs(otherCoordinate.getRadius() - this.radius) < AbstractCoordinate.COORDINATE_DELTA) : "Radius of SphericCoordinates must be equal.";
 	}
 
-	private void assertValidSphericCoordinate(double latitude, double longitude, double radius) {
-		assert (latitude <= 90 && latitude >= -90) : "Invalid latitude.";
-		assert (longitude <= 180 && latitude >= -180) : "Invalid longitude.";
-		assert (radius > 0) : "Invalid radius.";
+	private void assertValidSphericCoordinate(SphericCoordinate sc) {
+		assert (sc.getLatitude() <= 90 && sc.getLatitude() >= -90) : "Invalid latitude.";
+		assert (sc.getLongitude() <= 180 && sc.getLongitude() >= -180) : "Invalid longitude.";
+		assert (sc.getRadius() > 0) : "Invalid radius.";
 	}
+
 }
