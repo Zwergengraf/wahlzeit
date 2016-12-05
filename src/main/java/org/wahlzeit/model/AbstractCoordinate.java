@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.AssertUtil;
+
 public abstract class AbstractCoordinate implements Coordinate {
 
 	public static final double COORDINATE_DELTA = 1E-6;
@@ -10,7 +12,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
-		assertCoordinateNotNull(otherCoordinate);
+		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
 
 		AbstractCoordinate ac = (AbstractCoordinate)otherCoordinate;
 		double diffX = Math.abs(this.getX() - ac.getX());
@@ -22,13 +24,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public boolean isEqual(Coordinate otherCoordinate) {
-		assertCoordinateNotNull(otherCoordinate);
+		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
 
 		return this.getDistance(otherCoordinate) < COORDINATE_DELTA;
-	}
-
-	void assertCoordinateNotNull(Coordinate c) {
-		assert c != null : "Coordinate is null.";
 	}
 
 }

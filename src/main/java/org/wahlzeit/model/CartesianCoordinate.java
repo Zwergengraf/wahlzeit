@@ -1,6 +1,8 @@
 package org.wahlzeit.model;
 
 
+import org.wahlzeit.utils.AssertUtil;
+
 /**
  * Implementation of Coordinate interface using cartesian coordinates
  */
@@ -14,6 +16,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+
+		AssertUtil.assertIsValidDouble(x, "x");
+		AssertUtil.assertIsValidDouble(y, "y");
+		AssertUtil.assertIsValidDouble(z, "z");
 	}
 
 	public double getX() {

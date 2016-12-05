@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.AssertUtil;
+
 import static java.lang.Math.*;
 
 
@@ -67,7 +69,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
-		assertCoordinateNotNull(otherCoordinate);
+		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
 
 		if (otherCoordinate instanceof SphericCoordinate) {
 			SphericCoordinate sc = (SphericCoordinate) otherCoordinate;
@@ -103,6 +105,10 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	private void assertValidSphericCoordinate(SphericCoordinate sc) {
+		AssertUtil.assertIsValidDouble(sc.getLatitude(), "latitude");
+		AssertUtil.assertIsValidDouble(sc.getLongitude(), "longitude");
+		AssertUtil.assertIsValidDouble(sc.getRadius(), "radius");
+
 		assert (sc.getLatitude() <= 90 && sc.getLatitude() >= -90) : "Invalid latitude.";
 		assert (sc.getLongitude() <= 180 && sc.getLongitude() >= -180) : "Invalid longitude.";
 		assert (sc.getRadius() > 0) : "Invalid radius.";
