@@ -1,6 +1,10 @@
 package org.wahlzeit.model;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.wahlzeit.utils.AssertUtil;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.lang.Math.*;
 
@@ -9,6 +13,9 @@ import static java.lang.Math.*;
  * Implementation of Coordinate interface using spheric coordinates
  */
 public class SphericCoordinate extends AbstractCoordinate {
+
+	private static final Logger logger = Logger.getLogger(SphericCoordinate.class.getName());
+
 
 	private final double latitude;
 	private final double longitude;
@@ -23,7 +30,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public SphericCoordinate(double latitude, double longitude) {
+	public SphericCoordinate(double latitude, double longitude) throws IllegalArgumentException {
 		this(latitude, longitude, EARTH_RADIUS_KM);
 	}
 
@@ -35,11 +42,17 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param longitude
 	 * @param radius
 	 */
-	public SphericCoordinate(double latitude, double longitude, double radius) {
+	public SphericCoordinate(double latitude, double longitude, double radius) throws IllegalArgumentException {
+		if(!isValidSphericCoordinate(latitude, longitude, radius)) {
+			logger.log(Level.ALL, "Invalid SphericCoordinate given.");
+			throw new IllegalArgumentException("Invalid SphericCoordinate.");
+		}
+
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.radius = radius;
-		assertValidSphericCoordinate(this);
+
+		assertClassInvariants();
 	}
 
 	public double getLatitude() {
@@ -97,11 +110,14 @@ public class SphericCoordinate extends AbstractCoordinate {
 		double dist = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(Math.abs(lon1) - Math.abs(lon2)))
 				* getRadius();
 
+		assertValidDistance(dist);
 		return dist;
 	}
 
-	private void assertSameRadius(SphericCoordinate otherCoordinate) {
-		assert (Math.abs(otherCoordinate.getRadius() - this.radius) < AbstractCoordinate.COORDINATE_DELTA) : "Radius of SphericCoordinates must be equal.";
+	private void assertSameRadius(SphericCoordinate otherCoordinate) throws IllegalArgumentException {
+		if (Math.abs(otherCoordinate.getRadius() - this.radius) > AbstractCoordinate.COORDINATE_DELTA) {
+			throw new IllegalArgumentException("Radius of SphericCoordinates must be equal.");
+		}
 	}
 
 	private void assertValidSphericCoordinate(SphericCoordinate sc) {
@@ -109,13 +125,17 @@ public class SphericCoordinate extends AbstractCoordinate {
 		AssertUtil.assertIsValidDouble(sc.getLongitude(), "longitude");
 		AssertUtil.assertIsValidDouble(sc.getRadius(), "radius");
 
-		assert (sc.getLatitude() <= 90 && sc.getLatitude() >= -90) : "Invalid latitude.";
-		assert (sc.getLongitude() <= 180 && sc.getLongitude() >= -180) : "Invalid longitude.";
-		assert (sc.getRadius() > 0) : "Invalid radius.";
+		assert isValidSphericCoordinate(sc.latitude, sc.longitude, sc.radius) : "Invalid coordinate.";
 	}
 
 	private void assertClassInvariants() {
 		assertValidSphericCoordinate(this);
+	}
+
+	private boolean isValidSphericCoordinate(double latitude, double longitude, double radius) {
+		return ( (latitude >= -90 && latitude <= 90) &&
+				(longitude >= -180 && longitude <= 180) &&
+				(radius > 0) );
 	}
 
 }

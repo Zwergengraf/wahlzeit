@@ -25,12 +25,12 @@ public class SphericCoordinateTest {
 		berlin = new SphericCoordinate(52.5189, 13.4024);
 	}
 
-	@Test(expected=AssertionError.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testCoordinateInvalid1() {
 		new SphericCoordinate(-181, 0);
 	}
 
-	@Test(expected=AssertionError.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testCoordinateInvalid2() {
 		new SphericCoordinate(0, 181);
 	}

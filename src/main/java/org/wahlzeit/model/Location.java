@@ -1,13 +1,15 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.AssertUtil;
+
 /**
  * Location class
  */
 public class Location {
 
-	private Coordinate coordinate;
+	private CartesianCoordinate coordinate;
 
-	public Location(Coordinate coordinate) {
+	public Location(CartesianCoordinate coordinate) {
 		if(coordinate == null) {
 			throw new NullPointerException("coordinate is null.");
 		}
@@ -16,6 +18,7 @@ public class Location {
 	}
 
 	public Coordinate getCoordinate() {
+		AssertUtil.assertObjectNotNull(coordinate, "coordinate");
 		return coordinate;
 	}
 

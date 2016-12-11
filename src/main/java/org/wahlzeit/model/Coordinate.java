@@ -10,4 +10,8 @@ public interface Coordinate {
 
 	boolean isEqual(Coordinate otherCoordinate);
 
+	double getX();
+	double getY();
+	double getZ();
+
 }

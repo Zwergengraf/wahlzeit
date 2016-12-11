@@ -13,13 +13,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	private final double z;
 
 	public CartesianCoordinate(double x, double y, double z) {
+		AssertUtil.assertIsValidDouble(x, "x");
+		AssertUtil.assertIsValidDouble(y, "y");
+		AssertUtil.assertIsValidDouble(z, "z");
+
 		this.x = x;
 		this.y = y;
 		this.z = z;
 
-		AssertUtil.assertIsValidDouble(x, "x");
-		AssertUtil.assertIsValidDouble(y, "y");
-		AssertUtil.assertIsValidDouble(z, "z");
+		assertClassInvariants();
 	}
 
 	public double getX() {
@@ -32,5 +34,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	public double getZ() {
 		return z;
+	}
+
+	private void assertClassInvariants() {
+		AssertUtil.assertIsValidDouble(x, "x");
+		AssertUtil.assertIsValidDouble(y, "y");
+		AssertUtil.assertIsValidDouble(z, "z");
 	}
 }
