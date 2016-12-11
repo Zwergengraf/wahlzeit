@@ -79,6 +79,11 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return radius * cos(toRadians(latitude));
 	}
 
+	/**
+	 * Returns the distance (in KM) between two coordinates
+	 * @param otherCoordinate
+	 * @return distance in KM
+	 */
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
 		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");

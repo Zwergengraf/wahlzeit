@@ -6,6 +6,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	public static final double COORDINATE_DELTA = 1E-6;
 
+	/**
+	 * Returns the distance (in KM) between two coordinates
+	 * @param otherCoordinate
+	 * @return distance in KM
+	 */
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
 		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
@@ -19,6 +24,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return distance;
 	}
 
+	/**
+	 * Checks for equality of two coordinates (using COORDINATE_DELTA)
+	 * @param otherCoordinate
+	 * @return true if equal, false otherwise
+	 */
 	@Override
 	public boolean isEqual(Coordinate otherCoordinate) {
 		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
