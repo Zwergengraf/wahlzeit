@@ -1,6 +1,5 @@
 package org.wahlzeit.model;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.wahlzeit.utils.AssertUtil;
 
 import java.util.logging.Level;

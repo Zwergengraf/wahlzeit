@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Subclass;
+import org.wahlzeit.utils.AssertUtil;
 
 /**
  * A landscape photo represents a user-provided (uploaded) photo.
@@ -20,6 +21,7 @@ public class LandscapePhoto extends Photo {
 	 */
 	public LandscapePhoto(PhotoId myId) {
 		super(myId);
+		AssertUtil.assertObjectNotNull(id, "PhotoId");
 	}
 
 }

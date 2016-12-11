@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.AssertUtil;
 
 import java.util.logging.Logger;
 
@@ -51,6 +52,7 @@ public class LandscapePhotoFactory extends PhotoFactory {
 	 * @methodtype factory
 	 */
 	public Photo createPhoto(PhotoId id) {
+		AssertUtil.assertObjectNotNull(id, "PhotoId");
 		return new LandscapePhoto(id);
 	}
 }
