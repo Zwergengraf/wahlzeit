@@ -10,10 +10,7 @@ public class Location {
 	private CartesianCoordinate coordinate;
 
 	public Location(CartesianCoordinate coordinate) {
-		if(coordinate == null) {
-			throw new NullPointerException("coordinate is null.");
-		}
-
+		AssertUtil.assertObjectNotNull(coordinate, "coordinate");
 		this.coordinate = coordinate;
 	}
 
