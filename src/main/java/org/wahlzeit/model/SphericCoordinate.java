@@ -82,7 +82,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
-		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
+		if(otherCoordinate == null) {
+			throw new NullPointerException("otherCoordinate");
+		}
 
 		if (otherCoordinate instanceof SphericCoordinate) {
 			SphericCoordinate sc = (SphericCoordinate) otherCoordinate;

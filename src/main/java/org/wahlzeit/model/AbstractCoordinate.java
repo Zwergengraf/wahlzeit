@@ -8,7 +8,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public double getDistance(Coordinate otherCoordinate) {
-		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
+		if(otherCoordinate == null) {
+			throw new NullPointerException("otherCoordinate");
+		}
 
 		double diffX = Math.abs(this.getX() - otherCoordinate.getX());
 		double diffY = Math.abs(this.getY() - otherCoordinate.getY());
@@ -21,7 +23,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public boolean isEqual(Coordinate otherCoordinate) {
-		AssertUtil.assertObjectNotNull(otherCoordinate, "otherCoordinate");
+		if(otherCoordinate == null) {
+			throw new NullPointerException("otherCoordinate");
+		}
 
 		return this.getDistance(otherCoordinate) < COORDINATE_DELTA;
 	}
