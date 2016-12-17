@@ -13,7 +13,7 @@ public class CartesianCoordinateTest {
 
 	@Before
 	public void setUp() {
-		nuremberg = new CartesianCoordinate(1, 2, 3);
+		nuremberg = CartesianCoordinate.getInstance(1, 2, 3);
 	}
 
 	@Test
@@ -25,8 +25,8 @@ public class CartesianCoordinateTest {
 
 	@Test
 	public void testSimpleCartesianDistance() {
-		CartesianCoordinate c1 = new CartesianCoordinate(0, 0, 0);
-		CartesianCoordinate c2 = new CartesianCoordinate(2, 0, 0);
+		CartesianCoordinate c1 = CartesianCoordinate.getInstance(0, 0, 0);
+		CartesianCoordinate c2 = CartesianCoordinate.getInstance(2, 0, 0);
 		assertEquals(2, c1.getDistance(c2), 0);
 	}
 

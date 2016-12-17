@@ -21,8 +21,8 @@ public class CoordinateTest {
 
 	@Test
 	public void testDistanceSphericCartesian() {
-		CartesianCoordinate nurembergCartesian = new CartesianCoordinate(x, y, z);
-		SphericCoordinate nurembergSpheric = new SphericCoordinate(nurembergLat, nurembergLon);
+		CartesianCoordinate nurembergCartesian = CartesianCoordinate.getInstance(x, y, z);
+		SphericCoordinate nurembergSpheric = SphericCoordinate.getInstance(nurembergLat, nurembergLon);
 
 		double distance = nurembergCartesian.getDistance(nurembergSpheric);
 		assertEquals(0, distance, 0.01);

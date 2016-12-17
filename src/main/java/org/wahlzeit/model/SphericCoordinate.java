@@ -13,14 +13,30 @@ import static java.lang.Math.*;
  */
 public class SphericCoordinate extends AbstractCoordinate {
 
-	private static final Logger logger = Logger.getLogger(SphericCoordinate.class.getName());
+	private static ObjectCache<SphericCoordinate> instances = new ObjectCache<>();
 
+	private static final Logger logger = Logger.getLogger(SphericCoordinate.class.getName());
 
 	private final double latitude;
 	private final double longitude;
 	private final double radius;
 
 	public static final double EARTH_RADIUS_KM = 6371;
+
+
+	public static SphericCoordinate getInstance(double latitude, double longitude) throws IllegalArgumentException {
+		SphericCoordinate newObject = new SphericCoordinate(latitude, longitude);
+		SphericCoordinate returnValue = instances.getObject(newObject);
+		AssertUtil.assertObjectNotNull(returnValue, "returnValue");
+		return returnValue;
+	}
+
+	public static SphericCoordinate getInstance(double latitude, double longitude, double radius) throws IllegalArgumentException {
+		SphericCoordinate newObject = new SphericCoordinate(latitude, longitude, radius);
+		SphericCoordinate returnValue = instances.getObject(newObject);
+		AssertUtil.assertObjectNotNull(returnValue, "returnValue");
+		return returnValue;
+	}
 
 	/**
 	 * Constructor for SphericCoordinate, using earth radius
@@ -29,7 +45,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public SphericCoordinate(double latitude, double longitude) throws IllegalArgumentException {
+	private SphericCoordinate(double latitude, double longitude) throws IllegalArgumentException {
 		this(latitude, longitude, EARTH_RADIUS_KM);
 	}
 
@@ -41,7 +57,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param longitude
 	 * @param radius
 	 */
-	public SphericCoordinate(double latitude, double longitude, double radius) throws IllegalArgumentException {
+	private SphericCoordinate(double latitude, double longitude, double radius) throws IllegalArgumentException {
 		if(!isValidSphericCoordinate(latitude, longitude, radius)) {
 			logger.log(Level.ALL, "Invalid SphericCoordinate given.");
 			throw new IllegalArgumentException("Invalid SphericCoordinate.");

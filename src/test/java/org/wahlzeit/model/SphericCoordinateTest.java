@@ -18,21 +18,21 @@ public class SphericCoordinateTest {
 
 	@Before
 	public void setUp() {
-		northPole = new SphericCoordinate(90, 0);
-		southPole = new SphericCoordinate(-90, 0);
+		northPole = SphericCoordinate.getInstance(90, 0);
+		southPole = SphericCoordinate.getInstance(-90, 0);
 
-		nuremberg = new SphericCoordinate(49.4529, 11.0768);
-		berlin = new SphericCoordinate(52.5189, 13.4024);
+		nuremberg = SphericCoordinate.getInstance(49.4529, 11.0768);
+		berlin = SphericCoordinate.getInstance(52.5189, 13.4024);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testCoordinateInvalid1() {
-		new SphericCoordinate(-181, 0);
+		SphericCoordinate.getInstance(-181, 0);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testCoordinateInvalid2() {
-		new SphericCoordinate(0, 181);
+		SphericCoordinate.getInstance(0, 181);
 	}
 
 	/**

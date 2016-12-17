@@ -13,7 +13,7 @@ public class LocationTest {
 
 	@Before
 	public void setUp() {
-		testCartesianCoordinate = new CartesianCoordinate(0, 0, 0);
+		testCartesianCoordinate = CartesianCoordinate.getInstance(0, 0, 0);
 	}
 
 	@Test
