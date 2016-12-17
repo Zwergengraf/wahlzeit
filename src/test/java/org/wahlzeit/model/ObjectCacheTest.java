@@ -23,9 +23,7 @@ public class ObjectCacheTest {
 		// Object count must be unchanged
 		assert(before == after);
 
-		// Assert that th
-		assert(duplicateCoordinate.hashCode() == newCoordinate.hashCode());
-		assert(duplicateCoordinate.equals(newCoordinate));
+		// Assert that both objects are equal
 		assert(duplicateCoordinate == newCoordinate);
 	}
 }
