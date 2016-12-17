@@ -82,4 +82,12 @@ public class SphericCoordinateTest {
 	public void testFailIsEqual() {
 		assertFalse(nuremberg.isEqual(northPole));
 	}
+
+	@Test
+	public void testHashAndEquals() {
+		SphericCoordinate c1 = SphericCoordinate.getInstance(90, 0);
+		SphericCoordinate c2 = SphericCoordinate.getInstance(90, 0);
+		assert(c1.hashCode() == c2.hashCode());
+		assert(c1.equals(c2));
+	}
 }
