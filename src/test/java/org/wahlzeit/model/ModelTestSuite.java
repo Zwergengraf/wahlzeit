@@ -19,6 +19,7 @@ import org.wahlzeit.model.persistence.*;
 		GenderTest.class,
 		GuestTest.class,
 		LocationTest.class,
+		ObjectCacheTest.class,
 		PhotoFilterTest.class,
 		SphericCoordinateTest.class,
 		TagsTest.class,
