@@ -37,6 +37,13 @@ import java.util.Map;
 /**
  * A photo represents a user-provided (uploaded) photo.
  */
+@PatternInstance(
+		patternName = "Abstract Factory",
+		participants = {
+				"AbstractProduct",
+				"ConcreteProduct"
+		}
+)
 @Entity
 public class Photo extends DataObject {
 

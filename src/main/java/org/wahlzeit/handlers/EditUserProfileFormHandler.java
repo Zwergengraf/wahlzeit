@@ -20,12 +20,7 @@
 
 package org.wahlzeit.handlers;
 
-import org.wahlzeit.model.AccessRights;
-import org.wahlzeit.model.Gender;
-import org.wahlzeit.model.ModelConfig;
-import org.wahlzeit.model.Photo;
-import org.wahlzeit.model.User;
-import org.wahlzeit.model.UserSession;
+import org.wahlzeit.model.*;
 import org.wahlzeit.services.Language;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.utils.HtmlUtil;
@@ -38,6 +33,12 @@ import java.util.logging.Logger;
 /**
  * A handler class for a specific web form.
  */
+@PatternInstance(
+		patternName = "MVC - Controller",
+		participants = {
+				"EditUserProfileFormHandler"
+		}
+)
 public class EditUserProfileFormHandler extends AbstractWebFormHandler {
 
 	private static final Logger log = Logger.getLogger(EditUserProfileFormHandler.class.getName());

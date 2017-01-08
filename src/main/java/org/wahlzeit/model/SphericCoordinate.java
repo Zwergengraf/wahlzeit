@@ -11,6 +11,12 @@ import static java.lang.Math.*;
 /**
  * Implementation of Coordinate interface using spheric coordinates
  */
+@PatternInstance(
+		patternName = "Value Object",
+		participants = {
+				"SphericCoordinate"
+		}
+)
 public class SphericCoordinate extends AbstractCoordinate {
 
 	private static ObjectCache<SphericCoordinate> instances = new ObjectCache<>();

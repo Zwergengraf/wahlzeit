@@ -6,6 +6,12 @@ import org.wahlzeit.utils.AssertUtil;
 /**
  * Implementation of Coordinate interface using cartesian coordinates
  */
+@PatternInstance(
+		patternName = "Value Object",
+		participants = {
+				"CartesianCoordinate"
+		}
+)
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private static ObjectCache<CartesianCoordinate> instances = new ObjectCache<>();
