@@ -21,7 +21,7 @@ public class LandscapePhotoManager extends PhotoManager {
 	/**
 	 * @methodtype get
 	 */
-	public PhotoManager getLandscapePhotoManager() {
+	public static final PhotoManager getLandscapePhotoManager() {
 		return instance;
 	}
 

@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Container;
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Subclass;
 import org.wahlzeit.utils.AssertUtil;
 
@@ -8,6 +10,13 @@ import org.wahlzeit.utils.AssertUtil;
  */
 @Subclass(index = true)
 public class LandscapePhoto extends Photo {
+
+	@Ignore
+	private PhotoManager manager = LandscapePhotoManager.getInstance();
+
+	@Container
+	private Landscape landscape;
+
 
 	/**
 	 * @methodtype constructor
@@ -22,6 +31,15 @@ public class LandscapePhoto extends Photo {
 	public LandscapePhoto(PhotoId myId) {
 		super(myId);
 		AssertUtil.assertObjectNotNull(id, "PhotoId");
+	}
+
+
+	public Landscape getLandscape() {
+		return landscape;
+	}
+
+	public void setLandscape(Landscape landscape) {
+		this.landscape = landscape;
 	}
 
 }

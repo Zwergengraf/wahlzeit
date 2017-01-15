@@ -26,6 +26,7 @@ import org.wahlzeit.model.persistence.*;
 		UserStatusTest.class,
 		ValueTest.class,
 
+		LandscapeManagerTest.class,
 		LandscapePhotoFactoryTest.class,
 		LandscapePhotoManagerTest.class,
 		LandscapePhotoTest.class
