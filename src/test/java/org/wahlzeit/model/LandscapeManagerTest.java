@@ -1,6 +1,5 @@
 package org.wahlzeit.model;
 
-
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;

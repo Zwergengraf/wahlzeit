@@ -1,8 +1,5 @@
 package org.wahlzeit.model;
 
-
-import com.google.apphosting.api.ApiProxy;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.wahlzeit.services.ObjectManager;
 import org.wahlzeit.utils.AssertUtil;
 
