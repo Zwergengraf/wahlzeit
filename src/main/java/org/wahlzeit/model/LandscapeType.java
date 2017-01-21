@@ -6,6 +6,7 @@ import org.wahlzeit.utils.AssertUtil;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -34,33 +35,49 @@ public class LandscapeType extends DataObject {
 		return subTypes.iterator();
 	}
 
-	public void addSubType(LandscapeType ft) {
-		assert (ft != null) : "tried to set null sub-type";
-		ft.setSuperType(this);
-		subTypes.add(ft);
+	public void addSubType(LandscapeType landscapeType) {
+		AssertUtil.assertObjectNotNull(landscapeType, "landscapeType");
+
+		if(subTypes.contains(landscapeType)) {
+			return;
+		}
+
+		landscapeType.setSuperType(this);
+		subTypes.add(landscapeType);
+	}
+
+	public void removeSubType(LandscapeType landscapeType) {
+		AssertUtil.assertObjectNotNull(landscapeType, "landscapeType");
+		subTypes.remove(landscapeType);
 	}
 
 	public void setSuperType(LandscapeType landscapeType) {
 		AssertUtil.assertObjectNotNull(landscapeType, "landscapeType");
 
+		if(landscapeType.equals(this.superType)) {
+			return;
+		}
+
+		// When changing the superType we need to 'de-register' this LandscapeType
+		if(this.superType != null) {
+			this.superType.removeSubType(this);
+		}
+
 		this.superType = landscapeType;
-		superType.subTypes.add(landscapeType);
+		landscapeType.addSubType(this);
 	}
 
-	public boolean hasInstance(Landscape landscape) {
-		AssertUtil.assertObjectNotNull(landscape, "landscape");
-
-		if (landscape.getLandscapeType() == this) {
-			return true;
-		}
-		for (LandscapeType type : subTypes) {
-			if (type.hasInstance(landscape)) {
+	public boolean isSubtype(LandscapeType kt){
+		LandscapeType cur = this;
+		do {
+			if(cur == kt){
 				return true;
 			}
-		}
+			cur = cur.getSuperType();
+		} while(cur != null);
+
 		return false;
 	}
-
 
 	public LandscapeType(String name, Set<String> countryCodes, Set<Aspect> aspects) {
 		AssertUtil.assertObjectNotNull(name, "name");
@@ -88,4 +105,19 @@ public class LandscapeType extends DataObject {
 		return aspects;
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		LandscapeType that = (LandscapeType) o;
+		return Objects.equals(name, that.name) &&
+				Objects.equals(countryCodes, that.countryCodes) &&
+				Objects.equals(aspects, that.aspects);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, countryCodes, aspects);
+	}
 }

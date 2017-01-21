@@ -10,7 +10,7 @@ public class LandscapeManager extends ObjectManager {
 
 	protected static final LandscapeManager instance = new LandscapeManager();
 
-	private ConcurrentHashMap<String, Landscape> landscapes = new ConcurrentHashMap<>();
+	private ConcurrentHashMap<Landscape, Landscape> landscapes = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<String, LandscapeType> landscapeTypes = new ConcurrentHashMap<>();
 
 
@@ -45,18 +45,10 @@ public class LandscapeManager extends ObjectManager {
 		assertValidLandscapeTypeName(landscapeType.getName());
 
 		LandscapeType type = getLandscapeType(landscapeType.getName());
-		Landscape result = type.createLandscape(season);
+		Landscape landscape = type.createLandscape(season);
 
-		if(landscapes.containsKey(result.getId())) {
-			return landscapes.get(result.getId());
-		} else {
-			landscapes.put(result.getId(), result);
-			return result;
-		}
-	}
-
-	public Landscape getLandscape(String id) {
-		return landscapes.get(id);
+		landscapes.put(landscape, landscape);
+		return landscapes.get(landscape);
 	}
 
 	public LandscapeType getLandscapeType(String name) {

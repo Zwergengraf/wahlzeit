@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import com.google.appengine.api.images.Image;
+
 import java.util.logging.Logger;
 
 /**
@@ -25,4 +27,13 @@ public class LandscapePhotoManager extends PhotoManager {
 		return instance;
 	}
 
+	/**
+	 *
+	 */
+	public LandscapePhoto createPhoto(String filename, Image uploadedImage) throws Exception {
+		PhotoId id = PhotoId.getNextId();
+		LandscapePhoto photo = LandscapePhotoUtil.createPhoto(filename, id, uploadedImage);
+		addPhoto(photo);
+		return photo;
+	}
 }

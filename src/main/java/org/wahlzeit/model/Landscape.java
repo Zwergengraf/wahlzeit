@@ -35,33 +35,18 @@ public class Landscape extends DataObject {
 		return landscapeType;
 	}
 
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
-
-	public String getLandscapeTypeName() {
-		return landscapeType.getName();
-	}
-
-	public Set<String> getLandscapeTypeCountryCodes() {
-		return landscapeType.getCountryCodes();
-	}
-
-	public Set<LandscapeType.Aspect> getAspects() {
-		return landscapeType.getAspects();
-	}
-
-	public String getId() {
-		return Integer.toString(hashCode());
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Landscape landscape = (Landscape) o;
+		return Objects.equals(landscapeType, landscape.landscapeType) &&
+				season == landscape.season;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.landscapeType.getName(), this.season);
+		return Objects.hash(landscapeType, season);
 	}
 
 }

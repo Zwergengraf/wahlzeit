@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -14,6 +15,15 @@ import static org.junit.Assert.assertTrue;
 
 public class LandscapeManagerTest {
 
+	private LandscapeType alpsType, montBlancType, matterhornType;
+
+	private String landscapeName = "Alps";
+	private String landscapeNameMontBlanc = "Mont Blanc";
+	private String landscapeNameMatterhorn = "Matterhorn";
+
+	private Set<String> countryCodes;
+	private Set<LandscapeType.Aspect> aspects;
+
 	/**
 	 * ClassRule to initialize Google AppEngine Datastore
 	 */
@@ -22,48 +32,10 @@ public class LandscapeManagerTest {
 			outerRule(new LocalDatastoreServiceTestConfigProvider()).
 			around(new RegisteredOfyEnvironmentProvider());
 
-	@Test
-	public void testCreateLandscapeType() {
-		String landscapeName = "Yosemite National Park";
-
+	@Before
+	public void setUp() {
 		// Create country codes set
-		Set<String> countryCodes = new HashSet<>();
-		countryCodes.add("US");
-
-		// Create aspects set
-		Set<LandscapeType.Aspect> aspects = new HashSet<>();
-		aspects.add(LandscapeType.Aspect.MOUNTAIN);
-		aspects.add(LandscapeType.Aspect.FOREST);
-
-		// Create LandscapeType
-		LandscapeType yosemiteLandscapeType = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeName, countryCodes, aspects);
-
-		// Create first Landscape with this Type
-		Landscape yosemiteSummer = LandscapeManager.getLandscapeManager().createLandscape(yosemiteLandscapeType, Landscape.Season.SUMMER);
-		assert(yosemiteSummer.getLandscapeTypeName().equals(landscapeName));
-		assert(yosemiteSummer.getLandscapeTypeCountryCodes().equals(countryCodes));
-
-		// Create second Landscape with this Type
-		Landscape yosemiteWinter = LandscapeManager.getLandscapeManager().createLandscape(yosemiteLandscapeType, Landscape.Season.WINTER);
-		assert(yosemiteWinter.getLandscapeTypeName().equals(landscapeName));
-		assert(yosemiteWinter.getLandscapeTypeCountryCodes().equals(countryCodes));
-
-		// Assert that both Landscapes share the same LandscapeType
-		assert(yosemiteWinter.getLandscapeType().hashCode() == yosemiteSummer.getLandscapeType().hashCode());
-
-		// Assert that the LandscapeType contains both Landscapes
-		assertTrue(yosemiteLandscapeType.hasInstance(yosemiteSummer));
-		assertTrue(yosemiteLandscapeType.hasInstance(yosemiteWinter));
-	}
-
-	@Test
-	public void testSubTypes() {
-		String landscapeName = "Alps";
-		String landscapeNameMontBlanc = "Mont Blanc";
-		String landscapeNameMatterhorn = "Matterhorn";
-
-		// Create country codes set
-		Set<String> countryCodes = new HashSet<>();
+		countryCodes = new HashSet<>();
 		countryCodes.add("FR");
 		countryCodes.add("MC");
 		countryCodes.add("IT");
@@ -74,24 +46,51 @@ public class LandscapeManagerTest {
 		countryCodes.add("SI");
 
 		// Create aspects set
-		Set<LandscapeType.Aspect> aspects = new HashSet<>();
+		aspects = new HashSet<>();
 		aspects.add(LandscapeType.Aspect.MOUNTAIN);
 		aspects.add(LandscapeType.Aspect.FOREST);
 
 		// Create LandscapeType
-		LandscapeType alpsType = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeName, countryCodes, aspects);
+		alpsType = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeName, countryCodes, aspects);
 
 		// Create first subtype
-		LandscapeType montBlancType = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeNameMontBlanc, countryCodes, aspects);
+		montBlancType = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeNameMontBlanc, countryCodes, aspects);
 		montBlancType.setSuperType(alpsType);
 
 		// Create second subtype
-		LandscapeType matterhornType = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeNameMatterhorn, countryCodes, aspects);
+		matterhornType = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeNameMatterhorn, countryCodes, aspects);
 		matterhornType.setSuperType(alpsType);
-
-		// Assert that both LandscapeTypes are subtypes
-		assert(montBlancType.getSuperType().getName().equals(landscapeName));
-		assert(matterhornType.getSuperType().getName().equals(landscapeName));
 	}
 
+	@Test
+	public void testGetters() {
+		assert(alpsType.getCountryCodes().contains("DE"));
+		assert(alpsType.getAspects().contains(LandscapeType.Aspect.MOUNTAIN));
+	}
+
+	@Test
+	public void testSubTypes() {
+		// Assert that both LandscapeTypes are subtypes of alpsType
+		assert(montBlancType.isSubtype(alpsType));
+		assert(matterhornType.isSubtype(alpsType));
+	}
+
+	@Test
+	public void testSuperTypeChange() {
+		// Create new LandscapeType
+		LandscapeType newSuperType = LandscapeManager.getLandscapeManager().createLandscapeType("New SuperType", new HashSet<String>(), new HashSet<LandscapeType.Aspect>());
+		montBlancType.setSuperType(newSuperType);
+
+		assert(montBlancType.isSubtype(newSuperType));
+		assert(matterhornType.isSubtype(alpsType));
+	}
+
+	@Test
+	public void testLandscapeTypeInstanceSharing() {
+		// Create LandscapeType
+		LandscapeType duplicate = LandscapeManager.getLandscapeManager().createLandscapeType(landscapeName, countryCodes, aspects);
+
+		// Identical values -> both LandscapeTypes should reference the same object
+		assert(duplicate == alpsType);
+	}
 }

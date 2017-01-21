@@ -15,12 +15,12 @@ public class LandscapePhotoFactory extends PhotoFactory {
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
-	private static PhotoFactory instance = null;
+	private static LandscapePhotoFactory instance = null;
 
 	/**
 	 * Public singleton access method.
 	 */
-	public static synchronized PhotoFactory getInstance() {
+	public static synchronized LandscapePhotoFactory getInstance() {
 		if (instance == null) {
 			log.config(LogBuilder.createSystemMessage().addAction("setting LandscapePhotoFactory").toString());
 			setInstance(new LandscapePhotoFactory());
@@ -32,7 +32,7 @@ public class LandscapePhotoFactory extends PhotoFactory {
 	/**
 	 * Method to set the singleton instance of LandscapePhotoFactory.
 	 */
-	protected static synchronized void setInstance(PhotoFactory photoFactory) {
+	protected static synchronized void setInstance(LandscapePhotoFactory photoFactory) {
 		if (instance != null) {
 			throw new IllegalStateException("attempt to initalize PhotoFactory twice");
 		}
@@ -43,7 +43,7 @@ public class LandscapePhotoFactory extends PhotoFactory {
 	/**
 	 * @methodtype factory
 	 */
-	public Photo createPhoto() {
+	public LandscapePhoto createPhoto() {
 		return new LandscapePhoto();
 	}
 
@@ -51,7 +51,7 @@ public class LandscapePhotoFactory extends PhotoFactory {
 	 * Creates a new photo with the specified id
 	 * @methodtype factory
 	 */
-	public Photo createPhoto(PhotoId id) {
+	public LandscapePhoto createPhoto(PhotoId id) {
 		AssertUtil.assertObjectNotNull(id, "PhotoId");
 		return new LandscapePhoto(id);
 	}
